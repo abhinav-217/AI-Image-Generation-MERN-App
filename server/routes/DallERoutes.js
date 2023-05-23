@@ -13,9 +13,9 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration)
 
-router.route('/').get((req,res) => {
-    res.send("Hello From Open Ai Api")
-})
+// router.route('/').get((req,res) => {
+//     res.send("Hello From Open Ai Api")
+// })
 
 router.route('/').post(async (req,res) => {
     try {
@@ -26,11 +26,8 @@ router.route('/').post(async (req,res) => {
             size:'1024x1024',
             response_format:'b64_json'
         });
-    
         const image = aiResponse.data.data[0].b64_json;
         res.status(200).json({photo:image});
-        // console.log(aiResponse.data); 
-        // res.send("Good")
     } catch (error) {
         console.log(error);
         res.status(500).send(error?.response.data.error.message)
